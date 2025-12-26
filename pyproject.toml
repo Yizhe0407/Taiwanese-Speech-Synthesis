@@ -1,0 +1,33 @@
+[project]
+name = "taiwanese-speech-synthesis"
+version = "0.1.0"
+description = "Taiwanese Speech Synthesis System based on Tacotron2 and WaveRNN"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+    { name = "ga642381" }
+]
+
+dependencies = [
+    "torch>=1.7.0",
+    "tensorboard>=2.4.0",
+    "numpy>=1.19.0",
+    "librosa>=0.8.0",
+    "soundfile>=0.10.0",
+    "matplotlib>=3.3.0",
+    "unidecode>=1.1.0",
+    "inflect>=5.0.0",
+    "future>=0.18.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ga642381/Taiwanese-Speech-Synthesis"
+Repository = "https://github.com/ga642381/Taiwanese-Speech-Synthesis"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.uv]
+dev-dependencies = []
