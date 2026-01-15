@@ -29,5 +29,7 @@ Repository = "https://github.com/ga642381/Taiwanese-Speech-Synthesis"
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
-[tool.uv]
-dev-dependencies = []
+[dependency-groups]
+dev = [
+    "ruff>=0.14.11",
+]

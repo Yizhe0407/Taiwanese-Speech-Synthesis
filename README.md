@@ -1,22 +1,33 @@
 # taiwanese-speech-synthesis
 
-* This is a Taiwanese Speech Synthesis System based on Tacotron2 and WaveRNN
-* The input is in [臺羅拼音](https://zh.wikipedia.org/wiki/%E8%87%BA%E7%81%A3%E9%96%A9%E5%8D%97%E8%AA%9E%E7%BE%85%E9%A6%AC%E5%AD%97%E6%8B%BC%E9%9F%B3%E6%96%B9%E6%A1%88)，and the output is Taiwanese Speech
-* The model that translate from Chinese(中文，華語) to 臺羅拼音 will be released soon
-* The trained TTS model can be combined with [TaiwaneseTTS](https://github.com/ga642381/TaiwaneseTTS), so that we will have a awesome GUI interface. I intend to merge these two repositories into one in the future
+- This is a Taiwanese Speech Synthesis System based on Tacotron2 and WaveRNN
+- The input is in [臺羅拼音](https://zh.wikipedia.org/wiki/%E8%87%BA%E7%81%A3%E9%96%A9%E5%8D%97%E8%AA%9E%E7%BE%85%E9%A6%AC%E5%AD%97%E6%8B%BC%E9%9F%B3%E6%96%B9%E6%A1%88)，and the output is Taiwanese Speech
+- The model that translate from Chinese(中文，華語) to 臺羅拼音 will be released soon
+- The trained TTS model can be combined with [TaiwaneseTTS](https://github.com/ga642381/TaiwaneseTTS), so that we will have a awesome GUI interface. I intend to merge these two repositories into one in the future
 
 ## Quick Start
 
-1. Download [pretrained models](https://drive.google.com/drive/folders/1XuQ2Q4CAU4By_E45JW-G-4CiGM8e8HV8?usp=sharing)
-2. Specify the inputs in "sentences.txt"
-3. Generate audios with the command
-```
-python gen_tts.py sentences.txt --tts_weights ./pretrained_models/tacotron2.pyt --voc_weights ./pretrained_models/wavernn.pyt --save_dir ./results
+1. Install dependencies with [uv](https://github.com/astral-sh/uv)
+
+```bash
+uv sync
 ```
 
+2. Download [pretrained models](https://drive.google.com/drive/folders/1XuQ2Q4CAU4By_E45JW-G-4CiGM8e8HV8?usp=sharing)
+
+3. Specify the inputs in "sentences.txt"
+
+4. Generate audios with the command
+
+```bash
+uv run python gen_tts.py sentences.txt --tts_weights ./pretrained_models/tacotron2.pyt --voc_weights ./pretrained_models/wavernn.pyt --save_dir ./results
+```
+
+> 💡 詳細的 uv 使用說明請參考 [UV_USAGE.md](./UV_USAGE.md)
+
 ## References
+
 1. [臺灣言語工具](https://github.com/i3thuan5/tai5-uan5_gian5-gi2_kang1-ku7)
 2. [fatchord/WaveRNN](https://github.com/fatchord/WaveRNN)
 3. [i3thuan5/SuiSiann-HunLian](https://github.com/i3thuan5/SuiSiann-HunLian)
 4. [台灣媠聲(SuíSiann Dataset)](https://suisiann-dataset.ithuan.tw/)
-
