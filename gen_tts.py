@@ -48,10 +48,10 @@ class TaiwaneseTacotron():
 
         # setup computing resource
         if not self.args.force_cpu and torch.cuda.is_available():
-            device = torch.device('cuda')
+            self.device = torch.device('cuda')
         else:
-            device = torch.device('cpu')
-        print('Using device:', device)
+            self.device = torch.device('cpu')
+        print('Using device:', self.device)
 
         # === Initialize Wavernn === #
         if self.args.vocoder == 'wavernn':
@@ -67,7 +67,7 @@ class TaiwaneseTacotron():
                                      res_blocks=hp.voc_res_blocks,
                                      hop_length=hp.hop_length,
                                      sample_rate=hp.sample_rate,
-                                     mode=hp.voc_mode).to(device)
+                                     mode=hp.voc_mode).to(self.device)
 
             # voc_load_path = self.args.voc_weights if self.args.voc_weights else self.paths.voc_latest_weights
             voc_load_path = self.args.voc_weights
@@ -75,7 +75,7 @@ class TaiwaneseTacotron():
 
         # === Initialize Tacotron2 === #
         print('\nInitializing Tacotron2 Model...\n')
-        self.tts_model = Tacotron2().to(device)
+        self.tts_model = Tacotron2().to(self.device)
         # tts_load_path = self.args.tts_weights if self.args.tts_weights else self.paths.tts_latest_weights
         tts_load_path = self.args.tts_weights
         self.tts_model.load(tts_load_path)
@@ -106,7 +106,7 @@ class TaiwaneseTacotron():
             print(x)
 
             x = np.array(x)[None, :]
-            x = torch.autograd.Variable(torch.from_numpy(x)).cuda().long()
+            x = torch.autograd.Variable(torch.from_numpy(x)).to(self.device).long()
 
             self.tts_model.eval()
             _, mel_outputs_postnet, _, _ = self.tts_model.inference(x)
@@ -147,8 +147,8 @@ class TaiwaneseTacotron():
         # generate wavs from a given file
         if file is not None:
             with open(file) as f:
-                inputs = [text_to_sequence(
-                    l.strip(), hp.text_cleaners) for l in f]
+                inputs = [text_to_sequence(l.strip(), hp.text_cleaners) 
+                          for l in f if l.strip()]
         else:
             inputs = [text_to_sequence(input_text.strip(), ['basic_cleaners'])]
         self.gen_tacotron2(inputs)
